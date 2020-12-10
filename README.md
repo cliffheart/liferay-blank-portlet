@@ -25,3 +25,7 @@ Run npm install to install dependencies.
 ```bash
 npm install
 ```
+
+## Java Build Path
+
+Import JDK and all liaries in `/dev/lib` and `/WEB-INF/lib`.
