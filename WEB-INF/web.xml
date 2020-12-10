@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<display-name>Liferay-7-Blank-Portlet</display-name>
+	<!-- increase buffer size to avoid JSF1095 errors -->
+	<context-param>
+		<param-name>javax.faces.FACELETS_BUFFER_SIZE</param-name>
+		<param-value>131072</param-value>
+	</context-param>
+	<!-- More efficient, in an AJAX environment, to have server side state saving -->
+	<context-param>
+		<param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+		<param-value>/WEB-INF/taglib/cusc.taglib.xml</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+		<param-value>0</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>nova-light</param-value>
+	</context-param>
+	<context-param>
+		<param-name>primefaces.UPLOADER</param-name>
+		<param-value>auto</param-value>
+	</context-param>
+	<filter>
+		<filter-name>Invoker Filter - ERROR</filter-name>
+		<filter-class>com.liferay.portal.kernel.servlet.filters.invoker.InvokerFilter</filter-class>
+		<init-param>
+			<param-name>dispatcher</param-name>
+			<param-value>ERROR</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		<filter-name>Invoker Filter - FORWARD</filter-name>
+		<filter-class>com.liferay.portal.kernel.servlet.filters.invoker.InvokerFilter</filter-class>
+		<init-param>
+			<param-name>dispatcher</param-name>
+			<param-value>FORWARD</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		<filter-name>Invoker Filter - INCLUDE</filter-name>
+		<filter-class>com.liferay.portal.kernel.servlet.filters.invoker.InvokerFilter</filter-class>
+		<init-param>
+			<param-name>dispatcher</param-name>
+			<param-value>INCLUDE</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		<filter-name>Invoker Filter - REQUEST</filter-name>
+		<filter-class>com.liferay.portal.kernel.servlet.filters.invoker.InvokerFilter</filter-class>
+		<init-param>
+			<param-name>dispatcher</param-name>
+			<param-value>REQUEST</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		<filter-name>FlashScopeFixerFilter</filter-name>
+		<filter-class>com.jsf.filter.FlashScopeFixerFilter</filter-class>
+	</filter>
+	<!-- Filter dùng để sử dụng chức năng Upload file thông quan PrimeFaces, 
+		tuy nhiên hiện tại cần Pro sửa lỗi chưa chạy được -->
+	<filter>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>Invoker Filter - ERROR</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Invoker Filter - FORWARD</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Invoker Filter - INCLUDE</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>INCLUDE</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Invoker Filter - REQUEST</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>FlashScopeFixerFilter</filter-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
+	<listener>
+		<listener-class>com.liferay.portal.kernel.servlet.PluginContextListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.liferay.portal.kernel.servlet.SerializableSessionAttributeListener</listener-class>
+	</listener>
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Resource Servlet</servlet-name>
+		<servlet-class>org.primefaces.resource.ResourceServlet</servlet-class>
+	</servlet>
+	<!-- PORTLET -->
+	<servlet>
+		<servlet-name>DemoPortlet</servlet-name>
+		<servlet-class>com.liferay.portal.kernel.servlet.PortletServlet</servlet-class>
+		<init-param>
+			<param-name>portlet-class</param-name>
+			<param-value>javax.portlet.faces.GenericFacesPortlet</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DemoPortlet</servlet-name>
+		<url-pattern>/DemoPortlet/*</url-pattern>
+	</servlet-mapping>
+	<session-config>
+		<session-timeout>300</session-timeout>
+	</session-config>
+	<!--/ PORTLET -->
+</web-app>
+
+
+

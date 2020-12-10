@@ -1,0 +1,4 @@
+Liferay Requirement
+	- portlet.jar
+	- servlet-api.jar
+	- org.osgi.service.component.annotations-1.4.0.jar
