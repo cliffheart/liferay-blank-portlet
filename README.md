@@ -28,4 +28,4 @@ npm install
 
 ## Java Build Path
 
-Import JDK and all liaries in `/dev/lib` and `/WEB-INF/lib`.
+Import JDK and all libraries in `/dev/lib` and `/WEB-INF/lib`.
